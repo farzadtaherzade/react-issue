@@ -1,11 +1,11 @@
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
 
-interface DarkModeContextType {
+export interface DarkModeContextType {
     isDarkMode: boolean;
     toggleDarkMode: () => void;
 }
 
-const DarkModeContext = createContext<DarkModeContextType | null>(null)
+export const DarkModeContext = createContext<DarkModeContextType | null>(null)
 
 export const DarkModeProvider = ({ children }: { children: ReactNode }) => {
     const [isDarkMode, setIsDarkMode] = useState<boolean>(getDarkModeLocalstorage(false, "dark-mode"))
@@ -30,13 +30,18 @@ export const DarkModeProvider = ({ children }: { children: ReactNode }) => {
     </DarkModeContext.Provider>
 }
 
-export const useDarkMode = () => {
-    const context = useContext(DarkModeContext)
-    if (context === undefined) throw new Error('dark mode contetx was used out of dark mode provider')
-    return context
-}
+// eslint-disable-next-line react-refresh/only-export-components
+export const useDarkMode = (): DarkModeContextType => {
+    const context = useContext(DarkModeContext);
+    if (context === undefined)
+        throw new Error("dark mode contetx was used out of dark mode provider");
+    return context!;
+};
+
 
 const getDarkModeLocalstorage = (initValue: unknown, key: string): boolean => {
     const storedValue = localStorage.getItem(key);
     return storedValue ? JSON.parse(storedValue) : initValue;
 }
+
+

@@ -8,7 +8,7 @@ import { supabase } from "../utils/supabase";
 
 export async function getAllIssues(
   status?: Enums<"status">,
-  sorting?: keyof Tables<"issue">
+  sorting?: string | null
 ) {
   let query = supabase.from("issue").select(`*`);
 

@@ -44,7 +44,7 @@ const PageNotFound = () => {
       <NotFoundBox>
         <Title>404</Title>
         <Message>Sorry, the page you are looking for does not exist.</Message>
-        <Button onClick={() => navigate('/dashboard')} variant='primary' size='lm'>Go Home</Button>
+        <Button onClick={() => navigate('/dashboard')} variant='primary' size='lg'>Go Home</Button>
       </NotFoundBox>
     </NotFoundContainer>
   );

@@ -5,7 +5,7 @@ import FullScreen from "../../ui/FullScreen"
 import Loader from "../../ui/Loader"
 import IssueRow from "./IssueRow"
 import { useSearchParams } from "react-router-dom"
-import { Enums, Tables } from "../../../utils/database.types"
+import { Enums } from "../../../utils/database.types"
 import { BsArrowUp } from "react-icons/bs"
 
 const Table = styled.div`
@@ -39,7 +39,7 @@ const HeaderItem = styled.span`
 
 const tablesHeaders: {
     label: string,
-    value: keyof Tables<"issue">
+    value: string | null
 }[] = [
         { label: "Subject", value: "subject" },
         { label: "Status", value: "status" },
@@ -50,7 +50,7 @@ function IssueTable() {
     const [searchParams, setSearchParams] = useSearchParams()
     const statusQuery = searchParams.get("status")
     const status: Enums<"status"> | undefined = statusQuery !== "open" && statusQuery !== "closed" && statusQuery !== "in_progress" ? undefined : statusQuery
-    const sortBy: keyof Tables<"issue"> | undefined = tablesHeaders.map((column) => column.value).includes(searchParams.get("sortBy")) ? searchParams.get("sortBy") : undefined
+    const sortBy: string | null | undefined = tablesHeaders.map((column) => column.value).includes(searchParams.get("sortBy")) ? searchParams.get("sortBy") : undefined
 
     const { data: issues, isLoading } = useQuery({
         queryKey: ["issues", status, sortBy],
